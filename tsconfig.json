@@ -1,8 +1,17 @@
 {
     "compilerOptions": {
-      "target": "es5",
-      "module": "commonjs",
-      "outDir": "out",
-      "sourceMap": true
+      "target": "es2015",
+      "module": "es2015",
+      "outDir": "temp/js",
+      "rootDir": ".",
+      "types": ["p5"],
+      "sourceRoot": "src/ts",
+      "allowJs": false,
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "esModuleInterop": true,
+      "strict": false,
+      "strictPropertyInitialization": true,
+      "strictNullChecks": true
     }
   }

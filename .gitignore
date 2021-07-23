@@ -1,1 +1,3 @@
-out/
+dist/js/
+temp/js/src/ts/
+node_modules/
