@@ -2,6 +2,7 @@ import { Interactable } from './Interactable';
 import { CartesianCoordinate } from './CartesianCoordinate';
 import P5 from 'p5';
 import { SphericalCoordinate } from './SphericalCoordinate';
+import { log } from './Utilities';
 
 export class Particle implements Interactable {
 
@@ -28,10 +29,15 @@ export class Particle implements Interactable {
 
 
   draw(): void {
+    let beforePos = this.pos.clone();
+    log(this.p5, beforePos.toString("vor Move: "));
     this.move();
     this.p5.fill(this.col);
     this.p5.noStroke();
     this.p5.circle(this.pos.x(), this.pos.y(), 5);
+    log(this.p5, this.pos.toString("nach Move: "));
+    log(this.p5, "differenz Move: xd = " + (this.pos.x() - beforePos.x()));
+    log(this.p5, "");
   }
 
   private move(): void {
@@ -54,8 +60,9 @@ export class Particle implements Interactable {
   }
 
   public interactWith(other: Interactable): void {
+
     let spherical =
-      this.pos.getSpherical(other.getPosition(this.pos));
+      other.getPosition(this.pos).getSpherical(this.pos);
     let dist = spherical.getLength();
     let phi = spherical.getPhi();
     let theta = spherical.getTheta();
@@ -63,6 +70,8 @@ export class Particle implements Interactable {
 
     let sphMoveTo = new SphericalCoordinate(this.p5, phi, theta, force);
     let ccMoveTo = sphMoveTo.getCartesian();
+
+    log(this.p5, ccMoveTo.toString("Moving to from interaction :") + "  " + sphMoveTo.toString(" SPH move to= ") + ccMoveTo.toString(" CC move to= "));
 
     this.movementArray = this.p5.append(this.movementArray, ccMoveTo);
   }

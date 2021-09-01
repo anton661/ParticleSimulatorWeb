@@ -1,5 +1,6 @@
 import P5 from 'p5';
 import { SphericalCoordinate } from './SphericalCoordinate';
+import { log } from './Utilities';
 
 export class CartesianCoordinate {
 
@@ -45,15 +46,23 @@ export class CartesianCoordinate {
     let zd = this.internalRound(this.z() - other.z(), 4);
     let dist = this.p5.sqrt(this.p5.pow(xd, 2) + this.p5.pow(yd, 2) + this.p5.pow(zd, 2));
 
+    log(this.p5, "   in getSpherical: this (" + this.x() + "," + this.y() + "," + this.z() + ") " + other.toString(" other: ") + " xd = " + xd + " yd = " + yd + " zd = " + zd);
 
     let phiRad = this.p5.acos(yd / dist);
     let phiDeg = this.p5.degrees(phiRad);
 
+    let thetaDeg = 0;
     if (zd == 0) {
-      zd = 0.00001;
+      if (xd > 0) {
+        thetaDeg = 90;
+      } else {
+        thetaDeg = -90;
+      }
+    } else {
+      let thetaRad = this.p5.atan(xd / zd);
+      thetaDeg = this.p5.degrees(thetaRad);
     }
-    let thetaRad = this.p5.atan(xd / zd);
-    let thetaDeg = this.p5.degrees(thetaRad);
+
 
     return new SphericalCoordinate(this.p5, phiDeg, thetaDeg, dist);
   }

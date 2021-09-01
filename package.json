@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "@types/p5": "^1.3.0",
-    "p5": "^1.4.0"
+    "@types/three": "^0.131.0",
+    "p5": "^1.4.0",
+    "three": "^0.132.2"
   },
   "scripts": {
     "reinstall": "rimraf node_modules && npm cache clean && npm install",
@@ -10,7 +12,7 @@
     "css:prod": "node-sass src/scss/index.scss --output-style compressed | postcss -u autoprefixer -b 'last 2 versions' > dist/css/app.css",
     "js:dev": "babel temp/js | uglifyjs > dist/js/app.js",
     "js:prod": "babel temp/js | uglifyjs -m -c > dist/js/app.js",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist | rimraf temp",
     "mkdirs": "mkdir -p dist/js && mkdir -p dist/css",
     "copy:assets": "cp -r assets/* dist",
     "copy:html": "find src -name '*.html' -type f -exec cp {} dist \\;",

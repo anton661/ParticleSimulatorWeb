@@ -42,8 +42,8 @@ export class ParticleSimulator {
     this.b = new Boundry(this.p5);
     this.spcEye = new SphericalCoordinate(this.p5, 90, 0, 700);
 
-    this.pa1 = new Particle(this.p5, new CartesianCoordinate(this.p5, 0, 0, 0), new SphericalCoordinate(this.p5, 90, 90, 2), 100, "p1", this.RED);
-    this.pa2 = new Particle(this.p5, new CartesianCoordinate(this.p5, 250, 250, 0), new SphericalCoordinate(this.p5, 225, 0, 2), 100, "p2", this.BLUE);
+    this.pa1 = new Particle(this.p5, new CartesianCoordinate(this.p5, 0, 0, 0), new SphericalCoordinate(this.p5, 45, 90, 2), 100, "p1", this.RED);
+    this.pa2 = new Particle(this.p5, new CartesianCoordinate(this.p5, 250, 250, 0), new SphericalCoordinate(this.p5, 135, 90, -2), 100, "p2", this.BLUE);
     this.pa3 = new Particle(this.p5, new CartesianCoordinate(this.p5, 430, 40, 0), new SphericalCoordinate(this.p5, 90, 0, 2), 100, "p3", this.GREEN);
     this.pa4 = new Particle(this.p5, new CartesianCoordinate(this.p5, 410, 470, 0), new SphericalCoordinate(this.p5, 89, 0, 2), 100, "p4", this.REDBLUE);
     this.pa5 = new Particle(this.p5, new CartesianCoordinate(this.p5, 200, 200, 0), new SphericalCoordinate(this.p5, 225, 0, 2), 100, "p5", this.REDGREEN);
@@ -52,6 +52,12 @@ export class ParticleSimulator {
     this.particles = new Array<Particle>(0);
 
     this.particles.push(this.pa1);
+    this.particles.push(this.pa2);
+//    this.particles.push(this.pa3);
+//    this.particles.push(this.pa4);
+//    this.particles.push(this.pa5);
+//    this.particles.push(this.pa6);
+//    this.particles.push(this.pa7);
 
   }
 
@@ -59,6 +65,7 @@ export class ParticleSimulator {
 
 
   setup(): void {
+//    localStorage.clear();
   }
 
 
@@ -67,12 +74,8 @@ export class ParticleSimulator {
     let eye = this.spcEye.getCartesian();
     this.p5.camera(eye.x(), eye.y(), eye.z(), 0, 0, 0, 0, 1, 0);
 
-    this.drawCoordinateSystem();
+//    this.drawCoordinateSystem();
     this.b.draw();
-
-    for (let part of this.particles) {
-      part.draw();
-    }
 
     for (let i1 = 0; i1 < this.particles.length - 1; i1++) {
       let p1 = this.particles[i1];
@@ -86,6 +89,12 @@ export class ParticleSimulator {
       let p = this.particles[i];
       p.interactWith(this.b);
     }
+
+
+    for (let part of this.particles) {
+      part.draw();
+    }
+
   }
 
 
